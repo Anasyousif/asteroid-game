@@ -1,10 +1,12 @@
+import sys
+from shot import Shot
 import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
-from log_event import logger
+from logger import log_event
 
 def main():
     pygame.init()
@@ -15,6 +17,7 @@ def main():
     clock = pygame.time.Clock()
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
     Player.containers = (updatable,drawable)
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     dt = 0
@@ -22,6 +25,7 @@ def main():
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
     asteroid_field = AsteroidField()
+    Shot.containers = (shots,updatable,drawable)
     while True:
         # 1. Calculate time first
         dt = clock.tick(60) / 1000
